@@ -6,8 +6,9 @@ const S3 = new AWS.S3();
 const { basename, extname } = require('path');
 
 module.exports.handle = async ({ Records: records }, context) => {
+  let records = []
   try {
-    await Promise.all(records.map(async Record => {
+    for (const record of records) {
       const { key } = record.s3.object;
       const image = await S3.getObject({
         Bucket: process.env.bucket,
@@ -25,7 +26,7 @@ module.exports.handle = async ({ Records: records }, context) => {
         Key: 'compressed/${basename(key,extname(key))}'
       }).promise()
 
-    }))
+    }
 
     return {
       statusCode: 301,
