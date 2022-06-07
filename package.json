@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "predeploy": "rm -rf node_modules/sharp && npm install --platform=linux --arch=x64 --target=16.15.1",
+    "deploy": "serverless deploy -v",
+    "postdeploy": "rm -rf node_modules/sharp && npm install sharp"
+  },
+  "dependencies": {
+    "sharp": "^0.30.6"
+  }
+}
